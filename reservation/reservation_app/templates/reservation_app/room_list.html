@@ -1,0 +1,34 @@
+{% extends "reservation_app/base.html" %}
+
+{% block content %}
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>Room Name</td>
+            <td>Room Capacity</td>
+            <td>Projector</td>
+            <td>Booking</td>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for room in room_list %}
+            <tr>
+                <td>{{room.room_name}}</td>
+                <td>{{room.capacity}}</td>
+                <td>{% if room.projector %}
+                    Yes
+                {% else %}
+                    No
+                    {% endif %}
+                </td>
+            <td><a href="/room/details/{{ room.id }}" class="btn btn-primary btn-sm" role="button" aria-disabled="true">Book a room</a></td>
+
+
+        {% endfor %}
+    </tbody>
+</table>
+    <div class="fixed-bottom"><footer><a href="{% url 'admin_view' %}">Admin</a></footer></div>
+
+{% endblock content %}

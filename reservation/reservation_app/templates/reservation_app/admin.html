@@ -1,0 +1,54 @@
+{% extends "reservation_app/base.html" %}
+
+{% block content %}
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>Room Name</td>
+            <td>Room Capacity</td>
+            <td>Projector</td>
+            <td>Modification Date</td>
+
+
+        </tr>
+
+    </thead>
+    <tbody>
+        {% for room in room_list %}
+            <tr>
+                <td>{{room.room_name}}</td>
+                <td>{{room.capacity}}</td>
+                <td>{% if room.projector %}
+                    Yes
+                {% else %}
+                    No
+                    {% endif %}
+                </td>
+                <td>{{room.date_now}}</td>
+
+
+                <td>
+                    <a href="{% url 'room_update' room.id %}" class="btn text-secondary px-0">
+                        <i class="far fa-edit fa-lg"></i>
+                    </a>
+                    <form action="{% url 'room_delete' room.id %}" method="post" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn">
+                            <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+
+        {% endfor %}
+    </tbody>
+</table>
+
+     <td>
+                <a href="{% url 'room_insert' %}" class="btn btn-outline-success btn-sm">
+                    <i class="fas fa-plus"></i> Add New
+                </a>
+
+            </td>
+
+{% endblock content %}
